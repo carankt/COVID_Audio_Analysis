@@ -1,0 +1,8 @@
+
+.ipynb_checkpoints/Statistical Feature Relevance-checkpoint.ipynb
+*.csv
+data/.ipynb_checkpoints/symptoms-checkpoint
+data/.ipynb_checkpoints/test_labels-checkpoint
+data
+feats
+*.ipynb_checkpoints
