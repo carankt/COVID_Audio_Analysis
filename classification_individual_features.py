@@ -7,6 +7,28 @@ import os, pickle, sys
 
 meta_file = sys.argv[1]
 out_file = sys.argv[2]
+model_mode = sys.argv[3]
+model_mode = int(model_mode)
+
+""" 
+model - 0 - Linear Regression
+model - 1 - SVM Linear
+Model - 2 - Radial Basis Function SVM 
+"""
+
+if model_mode == 0:
+    from sklearn.linear_model import LogisticRegression as clf
+    model_name = "LR"
+elif model_mode == 1:
+    from sklearn.svm import SVC as clf
+    model_name = "SVM_Linear"
+elif model_mode == 2:
+    from sklearn.svm import SVC as clf
+    model_name = "SVM_RBF"
+else:
+    raise ValueError("Unknown classifier")
+
+
 
 ids_test = []
 ids_train = []
@@ -40,22 +62,39 @@ print(speech_meta_test.shape), print(speech_meta_train.shape)
 
 feat_accuracy_dict = {}
 
-## Linear Regression
-for features in feat_names.keys():
+## Model training and testing
+for features in tqdm(feat_names.keys()):
     feat_ = []
     for val in feat_names[features]:
         feat_.append(features + "_" + val)
+    print(features)
     scores = []
     input_to_model = speech_meta_train[feat_].to_numpy()
     output_of_the_model = speech_meta_train["target"].to_numpy()
     scaler = StandardScaler()
     scaler.fit(input_to_model)
-    model = clf( C=10**-7,
-                class_weight='balanced',
-                solver='liblinear',
-                random_state=np.random.RandomState(42))
+    C = 10**2
+    if model_mode == 0:
+        model = clf( C=C,
+                    penalty='l2',
+                    class_weight='balanced',
+                    solver='liblinear',
+                    random_state=np.random.RandomState(42))
+    elif model_mode == 1:
+        model = clf( C=C,
+                    kernel='linear',
+                    class_weight='balanced',
+                    probability=True,
+                    random_state=np.random.RandomState(42))
+    elif model_mode == 2:
+        model = clf( C=C,
+                    kernel='rbf',
+                    class_weight='balanced',
+                    probability=True,
+                    random_state=np.random.RandomState(42))
+        
     # training the model 
-    model.fit(scaler.transform(input_to_model),output_of_the_model)
+    model.fit(scaler.transform(input_to_model), output_of_the_model)
     
     # testing the model
     test_input_to_model = speech_meta_test[feat_].to_numpy()
@@ -64,12 +103,14 @@ for features in feat_names.keys():
     output_predicted = model.predict(scaler.transform(test_input_to_model))
     accuracy = sum(output_predicted == test_output_of_the_model)/len(output_predicted)
     feat_accuracy_dict[features] = accuracy
+    print(accuracy, features)
     
 sorted_acc = sorted(feat_accuracy_dict.values())
 acc = list(feat_accuracy_dict.values())
 key_list = list(feat_accuracy_dict.keys())
 
+
 for val in sorted_acc:
     ind = acc.index(val)
-    print(key_list[ind], val, file=open(out_file, "a"))
+    print(key_list[ind], val, file=open(out_file + model_name + ".txt", "a"))
     

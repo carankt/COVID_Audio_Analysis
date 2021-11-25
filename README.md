@@ -16,11 +16,15 @@ The above command converts the feature csv file of 6k feat to the meta file requ
 ## Run classification on each feature of the ComPare2016 feature dataset
 
 ```python
-python classification_individual_features.py your_meta_csv_created.csv output_text_file_name.txt
+python classification_individual_features.py breathing_meta.csv breathing_individual_features_classification_LR 0
 ```
 
 The above command gives the accuracy corresponding to the features used for classification.
+The above script can perform the following modes as per the required
 
-The above script can only perfomr Linear Regression for Now!
-
-Will add more functionality later.
+"""
+model - 0 - Linear Regression
+model - 1 - SVM Linear
+Model - 2 - Radial Basis Function SVM
+"""
+The C value in SVM play a major role
