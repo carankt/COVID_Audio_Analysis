@@ -3,8 +3,12 @@ COVID Audio Analysis - ASP Fall 21 Project
 
 ## Steps in running the code
 1. Download the two folders `data` and `feats` from the link [here](https://livejohnshopkins-my.sharepoint.com/:f:/g/personal/rkumar44_jh_edu/Ek-JFg1syhBBto8XN5dG6N4BGQCiJ2Up2grXEUNx_o4cHg?e=wv1IPB).
-2. extract the zip folders to this repo in your local machine
-3. run the bash script `classifier.sh`
+2. Install the requirements to run the program using
+```
+ pip install -r requirements.txt 
+ ```
+3. extract the zip folders to this repo in your local machine
+4. run the bash script `classifier.sh`
   ```
   bash classifier.sh
   ```
