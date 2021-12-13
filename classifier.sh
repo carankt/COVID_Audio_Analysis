@@ -24,13 +24,13 @@ mkdir -p speech_feats
 for classifier in lr;do 
 	
 	# Breathing
-	python local/classifier_with_feats.py breathing $classifier $datadir $featsdir/breathing.csv breathing_feats
+	python -W ignore local/classifier_with_feats.py breathing $classifier $datadir $featsdir/breathing.csv breathing_feats
 	
 	# Cough
-	python local/classifier_with_feats.py cough $classifier $datadir $featsdir/cough.csv cough_feats
+	python -W ignore local/classifier_with_feats.py cough $classifier $datadir $featsdir/cough.csv cough_feats
 	
 	# Speech
-	python local/classifier_with_feats.py speech  $classifier $datadir $featsdir/speech.csv speech_feats
+	python -W ignore local/classifier_with_feats.py speech  $classifier $datadir $featsdir/speech.csv speech_feats
 done
 
 

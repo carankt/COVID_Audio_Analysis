@@ -6,3 +6,7 @@ data/.ipynb_checkpoints/test_labels-checkpoint
 data
 feats
 *.ipynb_checkpoints
+cough_feats/
+speech_feats/
+breathing_feats/
+*.pyc
