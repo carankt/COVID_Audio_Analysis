@@ -10,3 +10,4 @@ cough_feats/
 speech_feats/
 breathing_feats/
 *.pyc
+.DS_Store
