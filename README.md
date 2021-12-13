@@ -8,6 +8,8 @@ COVID Audio Analysis - ASP Fall 21 Project
   ```
   bash classifier.sh
   ```
+ ** Note - please change the bash file according to the alias used for running python scripts in your local machine. eg - replace python with python3 in the bash file if you have installed python with python3 alias.   
+ 
 ## Dataset
 We used the CoSwara dataset for this project. The steps for downloading the dataset are listed below. We have the
 ```
